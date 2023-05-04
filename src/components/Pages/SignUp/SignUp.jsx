@@ -4,9 +4,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { Toaster, toast } from "react-hot-toast";
 
 const SignUp = () => {
-  const { googleSignUp, githubSignUp,createUser,updateUser } = useContext(AuthContext);
-
-
+  const { googleSignUp,setLoader, githubSignUp,createUser,updateUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   //  google
   const handleGoogleSigUp = () => {
@@ -38,33 +36,28 @@ const SignUp = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
-      setError("password not valid need 8 char ");
-      form.reset()
-      return;
-    }
-
-    console.log(name,  email, password,photo)
+    // if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+    //   setError("password not valid need 8 char ");
+    //   form.reset()
+    //   return;
+    // }
     createUser(email, password)
         .then(result => {
             const createdUser = result.user;
-            console.log(createdUser);
+            
+
+            updateUser(name, photo)
+            .then(result => {
+              setLoader(true)
+              toast.success("Signup Successful")
+            })
             setError("")
             form.reset()
         })
         .catch(error => {
-            console.log(error.message);
             setError(error.message)
         })
-
-        // update user 
-
-        updateUser(name,photo)
-        .then((result) => {
-           const user = result.user
-        }).catch((error) => {
-          console.log(error);
-        });
+        
 
 }
 

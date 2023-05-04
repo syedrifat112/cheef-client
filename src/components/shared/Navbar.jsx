@@ -13,6 +13,7 @@ const Navbar = () => {
       })
       .catch(() => {});
   };
+  console.log(user);
   return (
     <div className="w-[90%] mx-auto">
       <div className="navbar bg-base-100">
@@ -65,14 +66,17 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <div data-tooltip-id="tooltip" data-tooltip-content="Hello world!" className="avatar p-4">
-              <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 mx-4">
-                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" />
+            <>
+            <div data-tooltip-id="tooltip" data-tooltip-content={user?.displayName} className="avatar p-4">
+              <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 mx-4">
+                <img src={user?.photoURL} />
               </div>
-              <button onClick={handleSignOut} className="btn btn-primary">
+              
+            </div>
+            <button onClick={handleSignOut} className="btn btn-primary">
                 SignOut
               </button>
-            </div>
+            </>
           ) : (
             <Link to={"/login"} className="btn btn-primary">
               LogIn
