@@ -36,11 +36,11 @@ const SignUp = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    // if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
-    //   setError("password not valid need 8 char ");
-    //   form.reset()
-    //   return;
-    // }
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+      setError("password not valid need 8 char ");
+      form.reset()
+      return;
+    }
     createUser(email, password)
         .then(result => {
             const createdUser = result.user;
@@ -73,7 +73,7 @@ const SignUp = () => {
                 <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
                   Sign up
                 </h3>
-                {/* <p className="mt-4">{error}</p> */}
+                <p className="mt-4">{error}</p>
                 <p className="">
                   Already have an account?{" "}
                   <Link
